@@ -1,6 +1,6 @@
 // mongo db connection
 module.exports = {
-    'database': 'mongodb+srv://Nick:consumable@cluster0.krrnb.mongodb.net/fishHuntStore'
+    'db': 'mongodb+srv://Nick:consumable@cluster0.krrnb.mongodb.net/fishHuntStore'
     //github login 
     // 'github': {
     //     'clientId': 'ac33d0c52fd417b8e6d3',

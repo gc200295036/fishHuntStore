@@ -15,7 +15,7 @@ const mongoose = require('mongoose')
 const config = require('./dbConfiguration/database')
 //dbConfiguration/database file now stored as 'config' variable.
 // config.database so that my connection string isn't hard coded in app.js
-mongoose.connect(config.database,{
+mongoose.connect(config.db,{
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

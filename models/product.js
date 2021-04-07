@@ -1,0 +1,22 @@
+// require mongoose
+const mongoose = require('mongoose')
+
+// define schema
+
+var productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+})
+
+// use module.export productSchema to make public to controller
+module.exports = mongoose.model('Product', productSchema)
