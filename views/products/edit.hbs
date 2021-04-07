@@ -1,0 +1,35 @@
+<!-- create a product form -->
+<h1>Create Product</h1>
+<form method="post">
+    <fieldset>
+        <label for="name" class="col-2">
+            Name:
+        </label>
+        <input name="name" id="name" required value="{{product.name}}" />
+    </fieldset>
+        <fieldset>
+        <label for="description" class="col-2">
+            Description:
+        </label>
+        <input name="description" id="description" required value="{{product.description}}" />
+    </fieldset>
+        <fieldset>
+        <label for="quantity" class="col-2">
+            Quantity:
+        </label>
+        <input type="number" name="quantity" id="quantity" min="1" required value="{{product.quantity}}" />
+    </fieldset>
+       <fieldset>
+           <!--category-->
+        <label for="categoryName" class="col-2">
+            categoryName:
+        </label>
+        <select name="categoryName" id="categoryName"/>
+        <!--populates dropdown -->
+            {{#each categories}}
+                {{createOption this.categoryName ../product.category}}
+            {{/each}}
+        </select>
+    </fieldset>
+    <button class="offset-3 btn btn-primary">Create</button>
+</form>

@@ -68,4 +68,47 @@ router.get('/remove/:_id', (req, res, next) => {
             }
       })
 })
+
+/* GET /products/edit */
+router.get('/edit/:_id', (req, res, next) => {
+      Product.findById(req.params._id, (err, product) => {
+            if (err) {
+                  console.log(err)
+            }
+            else {
+                  // categories dropdown
+                  Category.find((err, categories) => {
+                        if (err) {
+                              console.log(err)
+                        }
+                        else {
+                        res.render('products/edit', {
+                        title: 'Product Edit',
+                        product: product,
+                        categories: categories
+                        })
+                  }
+               })
+            }
+      })
+})
+
+/* POST /products/edit */
+router.post('/edit/:_id', (req, res, next) => {
+      Product.findOneAndUpdate({ _id: req.params._id }, {
+            name: req.body.name,
+            description: req.body.description,
+            quantity: req.body.quantity,
+            categoryName: req.body.categoryName
+      }, (err, product) => {
+            if (err) {
+                  console.log(err)
+            }
+            else {
+                  res.redirect('/products')
+            }
+      
+      })
+})
+//make public
 module.exports = router;

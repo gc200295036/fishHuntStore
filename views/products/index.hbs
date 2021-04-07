@@ -12,6 +12,11 @@
         <th>Actions</th>
         {{#each products}}
             <tr>
+                <td>
+                    <a href="/products/edit/{{this._id}}">
+                    {{this.name}}
+                    </a>
+                </td>
                 <td>{{this.name}}</td>
                 <td>{{this.description}}</td>
                 <td>{{this.quantity}}</td>

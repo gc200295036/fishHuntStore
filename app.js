@@ -24,7 +24,17 @@ mongoose.connect(config.db,{
   console.log('CONNECTION SUCCESS! using fishHuntStore database @ MongoDB')
   }).catch(() => {
   console.log('CONNECTION FAILED! no connection to fishHuntStore database @ MongoDB')
-})
+  })
+
+  // hbs helper function that pre-selects the correct dropdown data
+const hbs = require('hbs')
+hbs.registerHelper('createOption', (currentValue, selectedValue) => {
+  var selectedProperty = ''
+  if (currentValue == selectedValue) {
+     selectedProperty = 'selected'
+  }
+  return new hbs.SafeString('<option' + selectedProperty + '>' + currentValue + '</option>')
+  })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
