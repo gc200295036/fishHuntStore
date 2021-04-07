@@ -3,7 +3,7 @@ var router = express.Router();
 
 // user model authentication
 const User = require('../models/user')
-
+const passport = require('passport')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
@@ -34,5 +34,12 @@ router.post('/signup', (req, res, next) => {
 router.get('/login', (req, res, next) => {
   res.render('login', {title: 'Log In'})
 })
-// make controller public
+
+/* post /login */
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/products',
+  failureRedirect: '/signup',
+  failureMessage: 'Unable to Login, Try Again or Sign Up'
+}))
+//make controller public
 module.exports = router;
