@@ -56,4 +56,16 @@ router.post('/add', (req, res, next) => {
             }
       })
 })
+/*GET /products/remove/ */
+router.get('/remove/:_id', (req, res, next) => {
+      // Product model remove method
+      Product.remove({ _id: req.params._id }, (err) => {
+            if (err) {
+                  console.log(err)
+            }
+            else {
+                  res.redirect('/products')
+            }
+      })
+})
 module.exports = router;

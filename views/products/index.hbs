@@ -9,12 +9,15 @@
         <th>Description</th>
         <th>Quantity</th>
         <th>Category</th>
+        <th>Actions</th>
         {{#each products}}
             <tr>
                 <td>{{this.name}}</td>
                 <td>{{this.description}}</td>
                 <td>{{this.quantity}}</td>
                 <td>{{this.categoryName}}</td>
+                <!--Remove Button-->
+                <td><a href="/products/remove/{{this.id}}" class="btn btn-danger" onclick="return remove();">Remove</a></td>
             </tr>
         {{/each}}
     </thead>
