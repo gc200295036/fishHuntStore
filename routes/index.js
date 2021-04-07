@@ -44,7 +44,7 @@ router.get('/login', (req, res, next) => {
 /* post /login */
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/products',
-  failureRedirect: '/signup',
+  failureRedirect: '/login',
   failureMessage: 'Unable to Login, Try Again or Sign Up'
 }))
 //make controller public
