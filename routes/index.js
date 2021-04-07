@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+// user model authentication
+const User = require('../models/user')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
@@ -11,6 +14,21 @@ router.get('/', function(req, res, next) {
 /* get /signup */
 router.get('/signup', (req, res, next) => {
   res.render('signup', {title: 'Create Account'})
+})
+/* post /signup */
+router.post('/signup', (req, res, next) => {
+  User.register(new User({
+    username: req.body.username
+  }), req.body.password, (err, newUser) => {
+    if (err) {
+      return res.redirect('/signup')
+    } else {
+      // login the user automatically
+      req.login(newUser, (err) => {
+        res.redirect('/products')
+      })
+    }
+  })
 })
 /* get /login */
 router.get('/login', (req, res, next) => {
