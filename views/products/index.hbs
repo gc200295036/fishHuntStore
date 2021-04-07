@@ -8,11 +8,13 @@
         <th>Name</th>
         <th>Description</th>
         <th>Quantity</th>
+        <th>Category</th>
         {{#each products}}
             <tr>
                 <td>{{this.name}}</td>
                 <td>{{this.description}}</td>
                 <td>{{this.quantity}}</td>
+                <td>{{this.categoryName}}</td>
             </tr>
         {{/each}}
     </thead>

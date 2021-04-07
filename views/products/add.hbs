@@ -19,5 +19,17 @@
         </label>
         <input type="number" name="quantity" id="quantity" min="1" required />
     </fieldset>
+       <fieldset>
+           <!--category-->
+        <label for="categoryName" class="col-2">
+            categoryName:
+        </label>
+        <select name="categoryName" id="categoryName"/>
+        <!--populates dropdown -->
+            {{#each categories}}
+                <option>{{this.categoryName}}</option>
+            {{/each}}
+        </select>
+    </fieldset>
     <button class="offset-3 btn btn-primary">Create</button>
 </form>

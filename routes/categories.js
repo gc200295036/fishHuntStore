@@ -10,7 +10,7 @@ router.get('/add', (req, res, next) => {
 /* GET /categories/add */
 router.post('/add', (req, res, next) => {
     Category.create({
-        name: req.body.name
+        categoryName: req.body.categoryName
     }, (err, newCategory) => {
         if (err) {
             console.log(err)

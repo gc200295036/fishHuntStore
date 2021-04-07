@@ -1,8 +1,8 @@
 const express = require('express');
 let Product = require('../models/product');
 const router = express.Router();
-
-
+// import category model 
+const Category = require('../models/category')
 /* GET /products page. */
 router.get('/', (req, res, next) => {
       //
@@ -19,9 +19,24 @@ router.get('/', (req, res, next) => {
       })
 });
 
-/*GET products/create */
+/*GET products/add */
 router.get('/add', (req, res, next) => {
-      res.render('products/add', {title: 'Create Product'})
+      // fetch Category model to display list for dropdown menu
+      Category.find((err, categories) => {
+            if(err) {
+                  // if error, log that error.
+                  console.log(err)
+            } 
+            else {
+                  res.render('products/add', {
+                        title: 'Product Details',
+                        categories: categories
+                  })
+            }
+            //Sorts dropdown list alphabetically
+      }).sort({categoryName:1})
+
+      // res.render('products/add', {title: 'Create Product'})
 })
 /*POST /products/add */
 // 
@@ -30,7 +45,8 @@ router.post('/add', (req, res, next) => {
       Product.create({
             name: req.body.name,
             description: req.body.description,
-            quantity: req.body.quantity
+            quantity: req.body.quantity,
+            categoryName: req.body.categoryName
       }, (err, newProduct) => {
             if (err) {
                   console.log(err)
