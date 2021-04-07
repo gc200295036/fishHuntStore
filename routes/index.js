@@ -7,4 +7,14 @@ router.get('/', function(req, res, next) {
     title: 'Home',
     pageGreeting: 'Welcome!'  });
 });
+
+/* get /signup */
+router.get('/signup', (req, res, next) => {
+  res.render('signup', {title: 'Create Account'})
+})
+/* get /login */
+router.get('/login', (req, res, next) => {
+  res.render('login', {title: 'Log In'})
+})
+// make controller public
 module.exports = router;
