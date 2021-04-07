@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories')
+
+const passport = require('passport')
+const session =  require('express-session')
 var app = express();
 
 // require mongoose
@@ -45,6 +48,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//passport configuration 
+//needs to be configured before the controllers are mapped so the controllers can use passport
+app.use(session({
+  secret: 'fishHuntStoreSecret',
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+// link passport to user model
+const User = require('./models/user')
+passport.use(User.createStrategy())
+// passport read/write user data
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
