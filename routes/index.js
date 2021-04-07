@@ -32,7 +32,13 @@ router.post('/signup', (req, res, next) => {
 })
 /* get /login */
 router.get('/login', (req, res, next) => {
-  res.render('login', {title: 'Log In'})
+  //check login error messages and display error message if an error occurs
+  let messages = req.session.messages || [];
+  req.session.messages = []; // clear messages with empty array
+  res.render('login', {
+    title: 'Log In',
+    messages: messages
+  })
 })
 
 /* post /login */
