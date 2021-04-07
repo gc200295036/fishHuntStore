@@ -47,5 +47,10 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login',
   failureMessage: 'Unable to Login, Try Again or Sign Up'
 }))
+/*get /logout */
+router.get('/logout', (req, res, next) => {
+    req.logout()
+    res.redirect('/login')
+})
 //make controller public
 module.exports = router;

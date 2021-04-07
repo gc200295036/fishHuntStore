@@ -1,8 +1,13 @@
+// require express
 const express = require('express');
+//product model stored into a variable
 let Product = require('../models/product');
+//enable routing
 const router = express.Router();
 // import category model 
 const Category = require('../models/category')
+// require passport for authentication
+const passport = require('passport')
 /* GET /products page. */
 router.get('/', (req, res, next) => {
       //
@@ -11,9 +16,11 @@ router.get('/', (req, res, next) => {
                   console.log(err)
             }
             else {
+                  //show current user in navbar using user:req.user
                   res.render('products/index', {
                         title: 'Products!',
-                        products: products
+                        products: products,
+                        user: req.user
                   })
             }
       })
@@ -30,7 +37,8 @@ router.get('/add', (req, res, next) => {
             else {
                   res.render('products/add', {
                         title: 'Product Details',
-                        categories: categories
+                        categories: categories,
+                        user: req.user
                   })
             }
             //Sorts dropdown list alphabetically
@@ -85,10 +93,11 @@ router.get('/edit/:_id', (req, res, next) => {
                         res.render('products/edit', {
                         title: 'Product Edit',
                         product: product,
-                        categories: categories
+                        categories: categories,
+                        user: req.user
                         })
                   }
-               })
+               }).sort({ categoryName: 1})
             }
       })
 })
