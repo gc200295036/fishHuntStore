@@ -54,8 +54,7 @@ router.get('/logout', (req, res, next) => {
 })
 /*get /github */
 router.get('/github', passport.authenticate('github', {
-  scope:['user.email']
-}))
+  scope:['user.email']}))
 
 /* get github/callback */
 router.get('/github/callback', passport.authenticate('github', {
@@ -64,6 +63,6 @@ router.get('/github/callback', passport.authenticate('github', {
   (req, res, next) => {
     res.redirect('/products')
   })
-  
+
 //make controller public
 module.exports = router;

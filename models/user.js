@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const plm = require('passport-local-mongoose')
 // create userSchema
 const userSchema = new mongoose.Schema({
-    login: String,
-    passcode: String,
+    username: String,
+    password: String,
     // external login 
     oauthId: String,
     oauthProvider: String,
