@@ -8,6 +8,13 @@ const router = express.Router();
 const Category = require('../models/category')
 // require passport for authentication
 const passport = require('passport')
+//logged in function does an authentication check for user to allow create/edit/delete - works like asp.net Authorize tag when using loggedIn infront of a view products/add
+function loggedIn(req, res, next) {
+      if (req.isAuthenticated()) {
+            return next() // return next 
+      }
+      res.redirect('/login') // redirects anon user who tries to access the create, edit delete page
+ }
 /* GET /products page. */
 router.get('/', (req, res, next) => {
       //
@@ -27,7 +34,8 @@ router.get('/', (req, res, next) => {
 });
 
 /*GET products/add */
-router.get('/add', (req, res, next) => {
+//loggedIn makes this private to non users, must login to user account
+router.get('/add', loggedIn,(req, res, next) => {
       // fetch Category model to display list for dropdown menu
       Category.find((err, categories) => {
             if(err) {
@@ -48,7 +56,7 @@ router.get('/add', (req, res, next) => {
 })
 /*POST /products/add */
 // 
-router.post('/add', (req, res, next) => {
+router.post('/add', loggedIn,(req, res, next) => {
       let Product = require('../models/product')
       Product.create({
             name: req.body.name,
@@ -65,7 +73,7 @@ router.post('/add', (req, res, next) => {
       })
 })
 /*GET /products/remove/ */
-router.get('/remove/:_id', (req, res, next) => {
+router.get('/remove/:_id', loggedIn,(req, res, next) => {
       // Product model remove method
       Product.remove({ _id: req.params._id }, (err) => {
             if (err) {
@@ -78,7 +86,7 @@ router.get('/remove/:_id', (req, res, next) => {
 })
 
 /* GET /products/edit */
-router.get('/edit/:_id', (req, res, next) => {
+router.get('/edit/:_id', loggedIn,(req, res, next) => {
       Product.findById(req.params._id, (err, product) => {
             if (err) {
                   console.log(err)
@@ -103,7 +111,7 @@ router.get('/edit/:_id', (req, res, next) => {
 })
 
 /* POST /products/edit */
-router.post('/edit/:_id', (req, res, next) => {
+router.post('/edit/:_id', loggedIn,(req, res, next) => {
       Product.findOneAndUpdate({ _id: req.params._id }, {
             name: req.body.name,
             description: req.body.description,

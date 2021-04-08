@@ -1,27 +1,40 @@
 <h1>{{title}}</h1>
+<!-- if there is a user object -->
+
 <p>{{productPageText}}</p>
 <!--Add a new product link -->
+<!-- hide if not user, when logged in as user you can see -->
+{{#if user}}
 <a href="/products/add">Add a New Product</a>
-
+{{/if}}
 <table class="table table-striped table-hover">
     <thead>
         <th>Name</th>
         <th>Description</th>
         <th>Quantity</th>
         <th>Category</th>
-        <th>Actions</th>
+        <!--hide if not user -->
+        {{#if user}}
+            <th>Actions</th>
+        {{/if}}
         {{#each products}}
             <tr>
                 <td>
+                    {{#if ../user}}
                     <a href="/products/edit/{{this._id}}">
                     {{this.name}}
                     </a>
+                    {{else}}
+                        {{this.name}}
+                    {{/if}}
                 </td>
                 <td>{{this.description}}</td>
                 <td>{{this.quantity}}</td>
                 <td>{{this.categoryName}}</td>
+                {{#if ../user}}
                 <!--Remove Button-->
                 <td><a href="/products/remove/{{this.id}}" class="btn btn-danger" onclick="return remove();">Remove</a></td>
+                {{/if}}
             </tr>
         {{/each}}
     </thead>
