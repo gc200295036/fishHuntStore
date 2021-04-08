@@ -9,16 +9,20 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories')
 
+// dbConfiguration file
+let config = require('./dbConfiguration/database')
+//dbConfiguration/database file now stored as 'config' variable.
+// config.database so that my connection string isn't hard coded in app.js
+
 const passport = require('passport')
-const session =  require('express-session')
+const session = require('express-session')
+//github login local strategy
+const gitHubStrategy = require('passport-github2').Strategy
 var app = express();
 
 // require mongoose
 const mongoose = require('mongoose')
-// dbConfiguration file
-const config = require('./dbConfiguration/database')
-//dbConfiguration/database file now stored as 'config' variable.
-// config.database so that my connection string isn't hard coded in app.js
+
 mongoose.connect(config.db,{
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -58,9 +62,36 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
 // link passport to user model
 const User = require('./models/user')
 passport.use(User.createStrategy())
+
+//passport-github2 authentication - external github login
+passport.use(new gitHubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackURL
+},
+  // after github logs in, register or login user
+  async (accessToken, refreshToken, profile, done) => {
+    const user = await User.findOne({ oauthId: profile.id })
+    if (user) {
+      return done(null, user)
+    }
+    else {
+      const newUser = new User({
+        username: profile.username,
+        oauthId: profile.id,
+        oauthProvider: 'Github External Login',
+        created: Date.now()
+      })
+      const savedUser = await newUser.save()
+      done(null, savedUser)
+    }
+  }
+))
+
 // passport read/write user data
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())

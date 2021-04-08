@@ -4,7 +4,11 @@ const plm = require('passport-local-mongoose')
 // create userSchema
 const userSchema = new mongoose.Schema({
     login: String,
-    passcode: String
+    passcode: String,
+    // external login 
+    oauthId: String,
+    oauthProvider: String,
+    created: Date
 })
 userSchema.plugin(plm)
 // export
