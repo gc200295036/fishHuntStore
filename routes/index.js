@@ -1,16 +1,39 @@
 var express = require('express');
+//express-fileupload
+// const upload = require('express-fileupload')
 var router = express.Router();
-
+// const app = express()
+// app.use(upload())
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/')
+// })
 // user model authentication
 const User = require('../models/user')
 const passport = require('passport')
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'Home',
-    pageGreeting: 'Welcome!'  });
-});
-
+    pageGreeting: 'Welcome!'
+  })
+})
+//   app.post('/', (req, res) => {
+//     if (req.files) {
+//       console.log(req.files)
+//       var file = req.files.file
+//       var filename = file.name
+//       console.log(filename)
+  
+//       file.mv('./uploads/'+filename, function (err) {
+//         if (err){
+//           res.send(err)
+//         } else {
+//           res.send("File Uploaded")
+//        }
+//       })
+//     }
+//   }) 
+// });
 /* get /signup */
 router.get('/signup', (req, res, next) => {
   res.render('signup', {title: 'Create Account'})

@@ -2,21 +2,31 @@
 {{#if messages}}
         <div class="alert alert-danger">Invalid Login</div>
         {{else}}
-        <div class="alert alert-info">Please Log In</div>
+        <div class="text-center">
+        <div class="alert alert-warning">Please Log In</div>
+        </div> <!--.text-center -->
 {{/if}}
+
 <form method="post">
 <fieldset class="form-group">
+        <div class="text-center">
 <label for="username" class="col-2 control-label">Username: *</label>
 <input name="username" id="username" required />
+</div> <!-- .text-center-->
 </fieldset>
+
 <fieldset class="form-group">
+        <div class="text-center">
 <label for="password" class="col-2 control-label">Password: *</label>
 <input name="password" id="password" type="password" required />
+</div> <!--.text-center -->
 </fieldset>
+
 <fieldset class="form-group">
-<button class="btn btn-info offset-3">Login</button><!--github login button--><a class="btn btn-info" href="/github">Github Login</a>
-<hr />
-        Need an account?  <a href="/signup" title="signup">signup</a>
+        <div class="text-center">
+<button class="btn btn-info offset-3">Login</button><!--github login button--><a class="btn btn-success" href="/github">Github Login</a>
+<hr />Need an account?  <a href="/signup" title="signup">signup</a>
+        </div> <!-- .text-center -->
 </fieldset>
 </form>
 
