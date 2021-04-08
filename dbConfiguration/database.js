@@ -5,9 +5,9 @@ module.exports = {
     //github login 
     'github': {
         //my github client id
-        'clientId': 'ac33d0c52fd417b8e6d3',
+        'clientId': 'a1e4a9d5503d6a895f91',
         //my github client secret
-        'clientSecret': 'a6b164455ba9860fe21492c6ac30ce033f295bb9',
+        'clientSecret': 'e0ca769b80875c139406c6b51d8988e2a1241d0a',
         'callbackUrl': 'https://fishhuntstore.herokuapp.com/'
     }
 }
